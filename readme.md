@@ -12,6 +12,7 @@ pip install pyaudio
 pip install playsound
 pip install PyObjC
 pip install wikipedia
+pip install smtplib
 ```
 ```
 pip install PyAudio
