@@ -9,6 +9,7 @@ import ssl
 import certifi
 import time
 import wikipedia
+import smtplib
 import os # to remove created audio files
 
 class person:
@@ -109,11 +110,25 @@ def respond(voice_data):
 		print(results)
 		speak(results)
 
-time.sleep(1)
+    #9: send email
+	if there_exists(["mail"]):
+        try:
+            talk("What is the message")
+            content = voice_data.split("for")[-1]
+            to = "your_email@gmail.com"
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+	        server.ehlo()
+	        server.starttls()
+	        server.login('youremail@gmail.com', 'your-password')
+	        server.sendmail('youremail@gmail.com', to, content)
+	        server.close()
+            speak("Email sent!")
+        except Exception as e:
+            print(e)
+            speak("Sorry sir, there was errors in connectivity.")
 
+time.sleep(1)
 person_obj = person()
 while(1):
     voice_data = record_audio() # get the voice input
     respond(voice_data) # respond
-
-
