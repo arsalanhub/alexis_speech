@@ -3,5 +3,5 @@ r = sr.Recognizer()
 file = sr.AudioFile('one.wav')
 with file as source:
  audio = r.record(source)
- result = r.recognize_google(audio)
+ result = r.recognize_google(audio,language='es')
 print(result)
