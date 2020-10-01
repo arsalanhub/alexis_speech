@@ -1,3 +1,4 @@
+
 import speech_recognition as sr # recognise speech
 import playsound # to play an audio file
 from gtts import gTTS # google text to speech
@@ -11,6 +12,7 @@ import time
 import wikipedia
 import smtplib
 import os # to remove created audio files
+import speech_recognition as sr
 
 class person:
     name = ''
@@ -132,3 +134,13 @@ person_obj = person()
 while(1):
     voice_data = record_audio() # get the voice input
     respond(voice_data) # respond
+
+
+r = sr.Recognizer()
+file = sr.AudioFile('one.wav')
+with file as source:
+ r.adjust_for_ambient_noise(source)
+ audio = r.record(source,duration=5)
+ result = r.recognize_google(audio,language='es')
+print(result)
+
