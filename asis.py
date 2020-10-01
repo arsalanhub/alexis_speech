@@ -78,7 +78,7 @@ def respond(voice_data):
         engine_speak(greet)
 
     # 2: name
-    if there_exists(["what is your name","what's your name","tell me your name"]):
+    if there_exists(["what is your name","what's your name","tell me your name","introduce yourself"]):
 
         if person_obj.name:
             engine_speak(f"My name is {asis_obj.name}, {person_obj.name}") #gets users name from voice input
@@ -232,7 +232,7 @@ def respond(voice_data):
                 engine_speak("im sorry i could not find the definition for "+definition)
 
 
-    if there_exists(["exit", "quit", "goodbye"]):
+    if there_exists(["exit", "quit", "goodbye", "go to sleep"]):
         engine_speak("bye")
         exit()
 
