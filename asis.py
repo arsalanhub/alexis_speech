@@ -16,6 +16,9 @@ import bs4 as bs
 import urllib.request
 import requests
 
+
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+
 class person:
     name = ''
     def setName(self, name):
@@ -86,10 +89,10 @@ def respond(voice_data):
         person_name = voice_data.split("is")[-1].strip()
         engine_speak("okay, i will remember that " + person_name)
         person_obj.setName(person_name) # remember name in person object
-    
+
     if there_exists(["what is my name"]):
         engine_speak("Your name must be " + person_obj.name)
-    
+
     if there_exists(["your name should be"]):
         asis_name = voice_data.split("be")[-1].strip()
         engine_speak("okay, i will remember that my name is " + asis_name)
@@ -114,13 +117,13 @@ def respond(voice_data):
     if there_exists(["search for"]) and 'youtube' not in voice_data:
         search_term = voice_data.split("for")[-1]
         url = "https://google.com/search?q=" + search_term
-        webbrowser.get().open(url)
+        webbrowser.get(chrome_path).open(url)
         engine_speak("Here is what I found for" + search_term + "on google")
-    
+
     if there_exists(["search"]) and 'youtube' not in voice_data:
         search_term = voice_data.replace("search","")
         url = "https://google.com/search?q=" + search_term
-        webbrowser.get().open(url)
+        webbrowser.get(chrome_path).open(url)
         engine_speak("Here is what I found for" + search_term + "on google")
 
     # 6: search youtube
@@ -128,61 +131,62 @@ def respond(voice_data):
         search_term = voice_data.split("for")[-1]
         search_term = search_term.replace("on youtube","").replace("search","")
         url = "https://www.youtube.com/results?search_query=" + search_term
-        webbrowser.get().open(url)
+        webbrowser.get(chrome_path).open(url)
         engine_speak("Here is what I found for " + search_term + "on youtube")
 
      #7: get stock price
     if there_exists(["price of"]):
         search_term = voice_data.split("for")[-1]
         url = "https://google.com/search?q=" + search_term
-        webbrowser.get().open(url)
+        webbrowser.get(chrome_path).open(url)
         engine_speak("Here is what I found for " + search_term + " on google")
-    
+
 
 
      #8 time table
     if there_exists(["show my time table"]):
         im = Image.open(r"D:\WhatsApp Image 2019-12-26 at 10.51.10 AM.jpeg")
         im.show()
-    
+
      #9 weather
     if there_exists(["weather"]):
         search_term = voice_data.split("for")[-1]
         url = "https://www.google.com/search?sxsrf=ACYBGNSQwMLDByBwdVFIUCbQqya-ET7AAA%3A1578847393212&ei=oUwbXtbXDN-C4-EP-5u82AE&q=weather&oq=weather&gs_l=psy-ab.3..35i39i285i70i256j0i67l4j0i131i67j0i131j0i67l2j0.1630.4591..5475...1.2..2.322.1659.9j5j0j1......0....1..gws-wiz.....10..0i71j35i39j35i362i39._5eSPD47bv8&ved=0ahUKEwiWrJvwwP7mAhVfwTgGHfsNDxsQ4dUDCAs&uact=5"
-        webbrowser.get().open(url)
+        webbrowser.get(chrome_path).open(url)
         engine_speak("Here is what I found for on google")
-     
+
 
      #10 stone paper scisorrs
     if there_exists(["game"]):
         voice_data = record_audio("choose among rock paper or scissor")
         moves=["rock", "paper", "scissor"]
-    
+
         cmove=random.choice(moves)
         pmove=voice_data
-        
+
 
         engine_speak("The computer chose " + cmove)
         engine_speak("You chose " + pmove)
-        #engine_speak("hi")
-        if pmove==cmove:
-            engine_speak("the match is draw")
+        if pmove=="rock" and cmove=="rock":
+            engine_speak("Draw")
         elif pmove== "rock" and cmove== "scissor":
             engine_speak("Player wins")
         elif pmove== "rock" and cmove== "paper":
+            engine_speak("Computer wins")
+        elif pmove== "scissor" and cmove== "scissor":
+            engine_speak("Draw")
+        elif pmove== "scissor" and cmove== "paper":
+            engine_speak("Player wins")
+        elif pmove== "scissor" and cmove== "rock":
             engine_speak("Computer wins")
         elif pmove== "paper" and cmove== "rock":
             engine_speak("Player wins")
         elif pmove== "paper" and cmove== "scissor":
             engine_speak("Computer wins")
-        elif pmove== "scissor" and cmove== "paper":
-            engine_speak("Player wins")
-        elif pmove== "scissor" and cmove== "rock":
-            engine_speak("Computer wins")
 
      #11 toss a coin
     if there_exists(["toss","flip","coin"]):
-        moves=["head", "tails"]   
+        moves=["head", "tails"]
         cmove=random.choice(moves)
         engine_speak("The computer chose " + cmove)
 
@@ -197,18 +201,18 @@ def respond(voice_data):
         elif opr == 'multiply' or 'x':
             engine_speak(int(voice_data.split()[0]) * int(voice_data.split()[2]))
         elif opr == 'divide':
-            engine_speak(int(voice_data.split()[0]) / int(voice_data.split()[2]))
+            engine_speak(int(voice_data.split()[0]) // int(voice_data.split()[2]))
         elif opr == 'power':
             engine_speak(int(voice_data.split()[0]) ** int(voice_data.split()[2]))
         else:
             engine_speak("Wrong Operator")
-        
+
      #13 screenshot
     if there_exists(["capture","my screen","screenshot"]):
         myScreenshot = pyautogui.screenshot()
         myScreenshot.save('D:/screenshot/screen.png')
-    
-    
+
+
      #14 to search wikipedia for definition
     if there_exists(["definition of"]):
         definition=record_audio("what do you need the definition of")
@@ -236,13 +240,13 @@ def respond(voice_data):
     if there_exists(["where am i"]):
         Ip_info = requests.get('https://api.ipdata.co?api-key=test').json()
         loc = Ip_info['region']
-        engine_speak(f"You must be somewhere in {loc}")    
-   
+        engine_speak(f"You must be somewhere in {loc}")
+
    # Current location as per Google maps
     if there_exists(["what is my exact location"]):
         url = "https://www.google.com/maps/search/Where+am+I+?/"
         webbrowser.get().open(url)
-        engine_speak("You must be somewhere near here, as per Google maps")    
+        engine_speak("You must be somewhere near here, as per Google maps")
 
 
 
