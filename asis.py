@@ -4,8 +4,6 @@ from gtts import gTTS # google text to speech
 import random
 from time import ctime # get time details
 import webbrowser # open browser
-import ssl
-import certifi
 import time
 import os # to remove created audio files
 from PIL import Image
@@ -25,7 +23,6 @@ class person:
         self.name = name
 
 class asis:
-    name = ''
     def setName(self, name):
         self.name = name
 
@@ -157,9 +154,9 @@ def respond(voice_data):
 
 
      #10 stone paper scisorrs
-    if there_exists(["game"]):
-        voice_data = record_audio("choose among rock paper or scissor")
-        moves=["rock", "paper", "scissor"]
+    if there_exists(["gameofthrones"]):
+        voice_data = record_audio("choose among anything")
+        moves=[1,2,3,4]
 
         cmove=random.choice(moves)
         pmove=voice_data

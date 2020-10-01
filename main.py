@@ -75,6 +75,12 @@ def respond(voice_data):
         webbrowser.get(chrome_path).open(url)
         speak(f'Here is what I found for {search_term} on google')
 
+    if there_exists(["codechef"]):
+        search_term = voice_data.split("code")[-1]
+        url = f"https://www.codechef.com/results?search_query={search_term}"
+        webbrowser.get(chrome_path).open(url)
+
+
     # 6: search youtube
     if there_exists(["youtube"]):
         search_term = voice_data.split("for")[-1]
