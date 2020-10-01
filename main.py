@@ -13,7 +13,7 @@ import wikipedia
 import smtplib
 import os # to remove created audio files
 import speech_recognition as sr
-
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 class person:
     name = ''
     def setName(self, name):
@@ -103,7 +103,7 @@ def respond(voice_data):
     if there_exists(["exit", "quit", "goodbye"]):
         speak("going offline")
         exit()
-    
+
     #8: search wikipedia
     if there_exists(["wikipedia"]):
         search_term = voice_data.split("for")[-1]
@@ -143,4 +143,3 @@ with file as source:
  audio = r.record(source,duration=5)
  result = r.recognize_google(audio,language='es')
 print(result)
-
