@@ -8,6 +8,7 @@ import yfinance as yf # to fetch financial data
 import ssl
 import certifi
 import time
+import wikipedia
 import os # to remove created audio files
 
 class person:
@@ -99,7 +100,14 @@ def respond(voice_data):
     if there_exists(["exit", "quit", "goodbye"]):
         speak("going offline")
         exit()
-
+    
+    #8: search wikipedia
+    if there_exists(["wikipedia"]):
+        search_term = voice_data.split("for")[-1]
+		results = wikipedia.summary(search_term, sentences = 2)
+		talk("According to Wikipedia")
+		print(results)
+		speak(results)
 
 time.sleep(1)
 
